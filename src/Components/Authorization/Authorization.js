@@ -4,6 +4,29 @@ import { Text, View, Button, Image, StyleSheet, TextInput } from 'react-native';
 import { Formik } from "formik";
 import * as Yup from 'yup';
 
+const AuthoInput = (props) => {
+    let inputProps = {
+        value: props.values,
+        placeholder: props.placeholder,
+        onChangeText: props.onChangeText
+    };
+    if (props.secureTextEntry)
+        inputProps.secureTextEntry = true;
+    return <View>
+        <TextInput
+            {...inputProps}
+            style={styles.input}
+
+        />
+        {props.errors && props.touched ?
+            <Text style={styles.errorMessages}>{
+                props.errors
+            }</Text> : null}
+
+    </View>
+}
+
+
 const SignupSchema = Yup.object().shape({
     Login: Yup.string()
         .max(50, 'Максимум 50 символов!')
@@ -19,7 +42,7 @@ const LogOut = () => {
 }
 
 const Login = () => {
-    const User = '../icon/User.png';
+    const User = '../../../assets/img/User.png';
     return (
         <View style={styles.form}>
             <Formik initialValues={{ Login: "", Password: "" }}
@@ -31,27 +54,24 @@ const Login = () => {
                     return (
                         <View style={styles.content}>
                             <Image source={require(User)} style={styles.img} />
-                            <TextInput
-                                style={styles.input}
+                            <AuthoInput
                                 value={props.values.Login}
                                 placeholder='Введите Логин'
-                                onChangeText={props.handleChange('Login')} />
-
-
-                            {props.errors.Login && props.touched.Login
-                                ?
-                                (<Text style={styles.errorMessages}>{props.errors.Login}</Text>) : null}
-
-                            <TextInput
+                                onChangeText={props.handleChange('Login')}
+                                errors={props.errors.Login}
+                                touched={props.touched.Login}
+                            />
+                            <AuthoInput
                                 secureTextEntry
-                                style={styles.input}
                                 value={props.values.Password}
                                 placeholder='Введите Пароль'
-                                onChangeText={props.handleChange('Password')} />
+                                onChangeText={props.handleChange('Password')}
+                                errors={props.errors.Password}
+                                touched={props.touched.Password}
+                            />
 
-                            {props.errors.Password && props.touched.Password
-                                ?
-                                (<Text style={styles.errorMessages}>{props.errors.Password}</Text>) : null}
+
+
 
                             <Button style={styles.buttom} title='Войти' onPress={props.handleSubmit} />
                         </View>
@@ -62,7 +82,7 @@ const Login = () => {
     );
 }
 export default function Form({ addArticle }) {
-    const flag = false;
+    const flag = true;
     return (<>
         {flag === true ? <Login />
             : <LogOut />
@@ -78,6 +98,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     errorMessages: {
+        marginTop: 5,
         color: "red",
     },
     content: {
