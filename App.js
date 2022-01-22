@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MainScreen from './Components/Main/Main';
-import ProfilScreen from './Components/Profil/Profil';
-import AuthorizationScreen from './Components/Authorization/Authorization';
+import MainScreen from './src/Components/Main/Main'
+import ProfilScreen from './src/Components/Profil/Profil';
+import AuthorizationScreen from './src/Components/Authorization/Authorization';
 
 const Tab = createBottomTabNavigator();
 
