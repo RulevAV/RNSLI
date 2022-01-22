@@ -66,7 +66,7 @@ export default function ProfilScreen() {
                 onChangeText={props.handleChange('Patronymic')}
                 errors={props.errors.Patronymic}
                 touched={props.touched.Patronymic} />
-              <Button style={styles.buttom} title='Войти' onPress={props.handleSubmit} />
+              <Button style={styles.buttom} title='Сохранить' onPress={props.handleSubmit} />
             </View>
           )
         }}
