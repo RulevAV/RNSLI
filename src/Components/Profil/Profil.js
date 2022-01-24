@@ -10,7 +10,7 @@ const SignupSchema = Yup.object().shape({
     .required('Введите фамилию!'),
   firstName: Yup.string()
     .required('Введите имя!'),
-  Patronymic: Yup.string()
+  patronymic: Yup.string()
     .required('Введите отчество!'),
 });
 
@@ -26,13 +26,12 @@ export default function ProfilScreen({ Profile, SaveProfile }) {
       source={{
         uri: Profile.photo
       }} />;
-  console.log(Profile);
   return (
     <ScrollView style={styles.profile}>
-      <Formik initialValues={{ photo: Profile.photo, lastName: Profile.lastName, firstName: Profile.firstName, Patronymic: Profile.Patronymic }}
+      <Formik initialValues={{ photo: Profile.photo, lastName: Profile.lastName, firstName: Profile.firstName, patronymic: Profile.patronymic }}
         validationSchema={SignupSchema}
         onSubmit={(values) => {
-          SaveProfile(values.photo, values.lastName, values.firstName, values.Patronymic);
+          SaveProfile(values.photo, values.lastName, values.firstName, values.patronymic);
         }}>
         {(props) => {
           return (
@@ -58,11 +57,11 @@ export default function ProfilScreen({ Profile, SaveProfile }) {
 
               <DataUser
                 title="Отчечтво"
-                value={props.values.Patronymic}
+                value={props.values.patronymic}
                 placeholder="Введите отчечтво"
-                onChangeText={props.handleChange('Patronymic')}
-                errors={props.errors.Patronymic}
-                touched={props.touched.Patronymic} />
+                onChangeText={props.handleChange('patronymic')}
+                errors={props.errors.patronymic}
+                touched={props.touched.patronymic} />
               <Button style={styles.buttom} title='Сохранить' onPress={props.handleSubmit} />
             </View>
           )

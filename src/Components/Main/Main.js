@@ -9,7 +9,7 @@ export default function MainScreen({ navigation }) {
     return state.MainReducer.Profiles;
   }));
   const users = Profiles.map((item, index) => {
-    return <User key={index} img={item.img} title={item.title} massage={item.massage} navigation={navigation} />
+    return <User key={index} photo={item.photo} lastName={item.lastName} firstName={item.firstName} patronymic={item.patronymic} navigation={navigation} />
   });
   return (
     <ScrollView style={{ flex: 1 }}>

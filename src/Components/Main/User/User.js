@@ -4,13 +4,14 @@ import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 export const User = (props) => {
     let noPhoto = '../../../../assets/img/noPhoto.jpeg';
-    return <TouchableOpacity style={styles.item} onPress={() => props.navigation.navigate('Profil')} >
-        {props.img
+    console.log(props.patronymic);
+    return <TouchableOpacity style={styles.item} onPress={() => props.navigation.navigate('test', props)} >
+        {props.photo
             ? <Image
                 style={styles.img}
                 resizeMode='contain'
                 source={{
-                    uri: props.img
+                    uri: props.photo
                 }}
             />
             : <Image source={require(noPhoto)}
@@ -19,8 +20,10 @@ export const User = (props) => {
         }
 
         <View style={styles.text}>
-            <Text style={styles.title} >{props.title}</Text>
-            <Text style={styles.massage}>{props.massage}</Text>
+            <Text style={styles.title} >{props.lastName}</Text>
+            <Text style={styles.massage}>{props.firstName}</Text>
+            <Text style={styles.massage}>{props.patronymic}</Text>
+
         </View>
     </TouchableOpacity>
 }

@@ -3,7 +3,7 @@ import { Text, View, Button, Image, StyleSheet, TextInput } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 import { Login } from './Login/Login';
 import { Logout } from './Logout/Logout';
-import { AuthorizationAction } from '../redux/AuthorizationReducer';
+import { AuthorizationAction } from '../../redux/AuthorizationReducer';
 
 
 export default function Authorization({ addArticle }) {
@@ -15,7 +15,6 @@ export default function Authorization({ addArticle }) {
         disoath(AuthorizationAction.Logout());
     }
     const LoginBtn = (Login, Password) => {
-        console.log(Login, Password);
         disoath(AuthorizationAction.Login());
     }
     return (<>

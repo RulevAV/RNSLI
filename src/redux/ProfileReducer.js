@@ -2,7 +2,7 @@ export const initialState = {
     photo: "https://ona-znaet.ru/_pu/19/72349760.jpg",
     lastName: "Иванов",
     firstName: "Иван",
-    Patronymic: "Иванович"
+    patronymic: "Иванович"
 };
 
 export const ProfileReducer = (state = initialState, action) => {
@@ -16,13 +16,13 @@ export const ProfileReducer = (state = initialState, action) => {
 }
 
 export const ProfileAction = {
-    Save: (photo, lastName, firstName, Patronymic) => ({
+    Save: (photo, lastName, firstName, patronymic) => ({
         type: "PROFILE_SAVE",
         data: {
             photo,
             lastName,
             firstName,
-            Patronymic
+            patronymic
         }
     }),
 }
