@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Login } from './Login/Login';
 import { Logout } from './Logout/Logout';
 import { AuthorizationAction } from '../../redux/AuthorizationReducer';
-
+import { AuthorizationActionThunkCreator } from '../../redux/AuthorizationReducer';
 
 export default function Authorization({ addArticle }) {
     const Auth = useSelector((state => {
@@ -15,7 +15,7 @@ export default function Authorization({ addArticle }) {
         disoath(AuthorizationAction.Logout());
     }
     const LoginBtn = (Login, Password) => {
-        disoath(AuthorizationAction.Login());
+        disoath(AuthorizationActionThunkCreator.Login(Login, Password));
     }
     return (<>
         {!Auth ? <Login LoginBtn={LoginBtn} />

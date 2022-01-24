@@ -1,3 +1,4 @@
+import { AuthAPI } from "../api/api";
 export const initialState = {
     Auth: false,
 };
@@ -19,23 +20,12 @@ export const AuthorizationAction = {
 export const AuthorizationActionThunkCreator = {
     Login: (Login, Password) => {
         return async (dispatch) => {
-            // dispatch(AuthActions.LockScreen(true));
-            // AuthAPI.Token(Email,Password).then((response) =>{
-            //     let {status,data} = response;
-            //     if(status === 200)
-            //     {
-            //         dispatch(AuthActions.SetUser(data));
-            //     }
-            // });
-            // dispatch(AuthActions.LockScreen(false));
-
+            AuthAPI.Login(Login, Password);
         }
     },
     Logout: () => {
         return async (dispatch) => {
-            // AuthAPI.RevokeToken().then((response) => {
-            //     dispatch(AuthActions.Logout());
-            // });
+
 
         }
     },
