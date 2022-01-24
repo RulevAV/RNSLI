@@ -1,22 +1,9 @@
-
 import * as React from 'react';
 import { Text, View, Image, StyleSheet, ScrollView, TextInput, Button } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-
-const DataUser = (props) => {
-  return <View style={styles.content}>
-    <View style={styles.section}>
-      <Text style={styles.label}>{props.title}</Text>
-      <TextInput style={styles.input} value={props.value} placeholder={props.placeholder} onChangeText={props.onChangeText} />
-      <Text style={styles.errorMessages}>{
-        props.errors && props.touched ?
-          props.errors : ""
-
-      }</Text>
-    </View>
-  </View>
-};
+import { DataUser } from './DataUser/DataUser';
+import { useDispatch, useSelector } from "react-redux";
 
 const SignupSchema = Yup.object().shape({
   lastName: Yup.string()
@@ -27,21 +14,31 @@ const SignupSchema = Yup.object().shape({
     .required('Введите отчество!'),
 });
 
-export default function ProfilScreen() {
+export default function ProfilScreen({ Profile, SaveProfile }) {
   const noPhoto = '../../../assets/img/noPhoto.jpeg';
+  const ComponentImg = !Profile.photo ?
+    <Image source={require(noPhoto)}
+      style={styles.img}
+      resizeMode='contain' /> :
+    <Image
+      style={styles.img}
+      resizeMode='contain'
+      source={{
+        uri: Profile.photo
+      }} />;
+  console.log(Profile);
   return (
     <ScrollView style={styles.profile}>
-      <Formik initialValues={{ lastName: "", firstName: "", Patronymic: "" }}
+      <Formik initialValues={{ photo: Profile.photo, lastName: Profile.lastName, firstName: Profile.firstName, Patronymic: Profile.Patronymic }}
         validationSchema={SignupSchema}
         onSubmit={(values) => {
-          console.log(values);
+          SaveProfile(values.photo, values.lastName, values.firstName, values.Patronymic);
         }}>
         {(props) => {
           return (
             <View style={styles.content}>
-              <Image source={require(noPhoto)}
-                style={styles.img}
-                resizeMode='contain' />
+
+              {ComponentImg}
               <Text style={styles.changeImg}>Изменить фотографию</Text>
               <DataUser
                 title="Фамилмя"
@@ -71,9 +68,6 @@ export default function ProfilScreen() {
           )
         }}
       </Formik>
-      {/* 
-      
-      */}
     </ScrollView>
   );
 }
@@ -96,36 +90,5 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 25,
     margin: 15
-  },
-  input: {
-    borderWidth: 1,
-    marginTop: 5,
-    marginLeft: 15,
-    marginEnd: 15,
-    padding: 15,
-    borderColor: "silver",
-    borderRadius: 5
-  },
-  label: {
-    color: "#42AAFF",
-    paddingLeft: 30,
-    fontSize: 20
-  },
-  section: {
-    padding: 5,
-    paddingBottom: 15,
-    margin: 5,
-    borderWidth: 0.5,
-    borderRadius: 5
-  },
-  content: {
-    flex: 1,
-    //backgroundColor: "red",
-
-  },
-  errorMessages: {
-    marginLeft: 25,
-    marginTop: 5,
-    color: "red",
-  },
+  }
 });

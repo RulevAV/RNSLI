@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MainScreen from './src/Components/Main/Main'
-import ProfilScreen from './src/Components/Profil/Profil';
+import MainScreen from './src/Components/Main/Main';
+import ProfileContainer from './src/Components/Profil/ProfileContainer';
 import AuthorizationScreen from './src/Components/Authorization/Authorization';
+import { useSelector } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 
 export default function Navigate() {
+  const Auth = useSelector((state => {
+    return state.AuthorizationReducer.Auth;
+  }));
   return (
     <NavigationContainer>
       <Tab.Navigator initialRouteName="HomeScreen"
@@ -23,25 +26,11 @@ export default function Navigate() {
             fontSize: 25
           },
           headerTintColor: '#fff',
-
         }}>
-        <Tab.Screen name="Main" component={MainScreen} options={
-          {
-            title: "Главная",
+        {Auth ? <Tab.Screen name="Main" component={MainScreen} options={{ title: "Главная", }} /> : null}
+        {Auth ? <Tab.Screen name="Profil" component={ProfileContainer} options={{ title: "Профиль" }} /> : null}
 
-
-          }} />
-        <Tab.Screen name="Profil" component={ProfilScreen} options={
-          {
-            title: "Профиль",
-
-
-          }} />
-        <Tab.Screen name="Authorization" component={AuthorizationScreen} options={
-          {
-            title: "Авторизация",
-
-          }} />
+        <Tab.Screen name="Authorization" component={AuthorizationScreen} options={{ title: "Авторизация" }} />
       </Tab.Navigator>
     </NavigationContainer>
   );

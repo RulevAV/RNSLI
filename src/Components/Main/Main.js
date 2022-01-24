@@ -1,44 +1,19 @@
 
 import * as React from 'react';
-import { Text, View, Image, ScrollView, StyleSheet } from 'react-native';
+import { Text, View, Image, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { useDispatch, useSelector } from "react-redux";
+import { User } from './User/User';
 
-const noPhoto = '../../../assets/img/noPhoto.jpeg';
-
-const User = (props) => {
-  let img = '../../../assets/img/noPhoto.jpeg'
-  props.img ? props.img : noPhoto;
-  return <View style={styles.item}>
-    <Image source={require(img)}
-      style={styles.img}
-      resizeMode='contain' />
-    <View style={styles.text}>
-      <Text style={styles.title}>{props.title}</Text>
-      <Text style={styles.massage}>{props.massage}</Text>
-    </View>
-  </View>
-}
-
-export default function MainScreen() {
-
+export default function MainScreen({ navigation }) {
+  const Profiles = useSelector((state => {
+    return state.MainReducer.Profiles;
+  }));
+  const users = Profiles.map((item, index) => {
+    return <User key={index} img={item.img} title={item.title} massage={item.massage} navigation={navigation} />
+  });
   return (
     <ScrollView style={{ flex: 1 }}>
-      <User img={null} title="Заголовок" massage="
-      текст"/>
-      <User img={null} title="Заголовок" massage="
-      текст"/>
-      <User img={null} title="Заголовок" massage="
-      текст"/>
-      <User img={null} title="Заголовок" massage="
-      текст"/>
-      <User img={null} title="Заголовок" massage="
-      текст"/>
-      <User img={null} title="Заголовок" massage="
-      текст"/>
-      <User img={null} title="Заголовок" massage="
-      текст"/>
-      <User img={null} title="Заголовок" massage="
-      текст"/>
-
+      {users}
     </ScrollView>
   );
 }
