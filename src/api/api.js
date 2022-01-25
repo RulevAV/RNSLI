@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ServerAuth = "https://maagserver/AuthServer/";
+const ServerAuth = "http://localhost:8600/api";
 const AuthGuery = axios.create({
     withCredentials: true,
     baseURL: ServerAuth,
@@ -12,12 +12,11 @@ const AuthGuery = axios.create({
 
 export const AuthAPI = {
     Login: (Login, Password) => {
-        //let data = JSON.stringify({ Email, Password });
-        let email = Login;
-        let password = Password;
+        let email = "admin";
+        let password = "0000";
         let data = JSON.stringify({ email, password });
-        console.log(123);
-        return AuthGuery.post('api/user/token', data)
+        //let data = { email: "admin", password: "0000" };
+        return AuthGuery.post('login', data)
             .then(response => {
                 console.log(response);
                 return response;
