@@ -13,7 +13,7 @@ export default function TabNavigator() {
     return state.AuthorizationReducer.Auth;
   }));
   return (
-    <Tab.Navigator initialRouteName="HomeScreen"
+    <Tab.Navigator initialRouteName="Main"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#42AAFF",

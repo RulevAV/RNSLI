@@ -7,6 +7,7 @@ const AuthoInput = (props) => {
 
     return <View>
         <TextInput
+            autoCapitalize="none"
             value={props.values}
             placeholder={props.placeholder}
             onChangeText={props.onChangeText}

@@ -21,8 +21,8 @@ export const User = (props) => {
 
         <View style={styles.text}>
             <Text style={styles.title} >{props.lastName}</Text>
-            <Text style={styles.massage}>{props.firstName}</Text>
-            <Text style={styles.massage}>{props.patronymic}</Text>
+            <Text style={styles.title}>{props.firstName}</Text>
+            <Text style={styles.title}>{props.patronymic}</Text>
 
         </View>
     </TouchableOpacity>
@@ -38,15 +38,15 @@ const styles = StyleSheet.create({
     img: {
         width: 100,
         height: 100,
-        borderWidth: 2,
-        borderColor: "#FFD700",
+        //borderWidth: 1,
+        //borderColor: "#FFD700",
+    },
+    text: {
+        padding: 10,
+        borderLeftWidth: 0.5
     },
     title: {
-        fontSize: 20,
-        fontFamily: "Montserrat-Bold"
-    },
-    massage: {
-        fontSize: 15,
-        fontFamily: "Montserrat-Light",
+        fontSize: 16,
+        fontFamily: "Montserrat-Light"
     }
 });

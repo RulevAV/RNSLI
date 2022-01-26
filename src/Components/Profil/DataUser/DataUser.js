@@ -21,7 +21,7 @@ export const DataUser = (props) => {
 
 const styles = StyleSheet.create({
     input: {
-        borderWidth: 1,
+        borderBottomWidth: 1,
         marginTop: 5,
         marginLeft: 15,
         marginEnd: 15,

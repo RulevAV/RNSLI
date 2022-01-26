@@ -22,10 +22,26 @@ export default function ProfilScreen({ Profile, SaveProfile }) {
       resizeMode='contain' /> :
     <Image
       style={styles.img}
-      resizeMode='contain'
+      //resizeMode='contain'
       source={{
         uri: Profile.photo
       }} />;
+  const selectIMG = () => {
+    let body = new FormData();
+    body.append('photo', { uri: imagePath, name: 'photo.png', filename: 'imageName.png', type: 'image/png' });
+    body.append('Content-Type', 'image/png');
+
+    // fetch(Url, {
+    //   method: 'POST', headers: {
+    //     "Content-Type": "multipart/form-data",
+    //     "otherHeader": "foo",
+    //   }, body: body
+    // })
+    //   .then((res) => checkStatus(res))
+    //   .then((res) => res.json())
+    //   .then((res) => { console.log("response" + JSON.stringify(res)); })
+    //   .catch((e) => console.log(e))
+  }
   return (
     <ScrollView style={styles.profile}>
       <Formik initialValues={{ photo: Profile.photo, lastName: Profile.lastName, firstName: Profile.firstName, patronymic: Profile.patronymic }}
@@ -38,9 +54,13 @@ export default function ProfilScreen({ Profile, SaveProfile }) {
             <View style={styles.content}>
 
               {ComponentImg}
-              <Text style={styles.changeImg}>Изменить фотографию</Text>
+              <Text style={styles.changeImg} onPress={selectIMG}>Изменить фотографию</Text>
+
+              <View>
+
+              </View>
               <DataUser
-                title="Фамилмя"
+                title="Фамиля"
                 value={props.values.lastName}
                 placeholder="Введите фамилию"
                 onChangeText={props.handleChange('lastName')}
@@ -81,8 +101,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    borderWidth: 2,
-    borderColor: "#FFD700",
+    borderWidth: 1,
+    //borderColor: "#FFD700",
     alignSelf: "center"
   },
   changeImg: {

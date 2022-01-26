@@ -12,7 +12,7 @@ export default function Authorization({ addArticle }) {
     }));
     const disoath = useDispatch();
     const LogoutBtn = () => {
-        disoath(AuthorizationAction.Logout());
+        disoath(AuthorizationActionThunkCreator.Logout());
     }
     const LoginBtn = (Login, Password) => {
         disoath(AuthorizationActionThunkCreator.Login(Login, Password));
