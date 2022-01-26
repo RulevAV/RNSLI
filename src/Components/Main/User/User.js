@@ -4,8 +4,7 @@ import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 export const User = (props) => {
     let noPhoto = '../../../../assets/img/noPhoto.jpeg';
-    console.log(props.patronymic);
-    return <TouchableOpacity style={styles.item} onPress={() => props.navigation.navigate('test', props)} >
+    return <TouchableOpacity style={styles.item} onPress={() => props.navigation.navigate('test', { ...props })} >
         {props.photo
             ? <Image
                 style={styles.img}
@@ -38,8 +37,6 @@ const styles = StyleSheet.create({
     img: {
         width: 100,
         height: 100,
-        //borderWidth: 1,
-        //borderColor: "#FFD700",
     },
     text: {
         padding: 10,

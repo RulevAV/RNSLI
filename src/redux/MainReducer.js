@@ -1,3 +1,4 @@
+import { AuthAPI } from "../api/api";
 function CreateProfile(lastName, firstName, patronymic, photo) {
     return {
         lastName,
@@ -19,9 +20,32 @@ export const initialState = {
 
 export const MainReducer = (state = initialState, action) => {
     switch (action.type) {
+        case "MAIN_CLIENTS":
+            return {
+                Profiles: [...action.data]
+            };
         default: return state;
     }
 }
 
 export const MainAction = {
+    Save: (clients) => ({
+        type: "MAIN_CLIENTS",
+        data: clients
+    }),
 }
+export const MainActionThunkCreator = {
+    ClientsGet: () => {
+        return async (dispatch) => {
+            AuthAPI.ClientsGet().then(Clients => {
+                let clients = Clients.map(e => {
+                    return CreateProfile(e.profile.surname, e.profile.name, e.profile.patronymic, null);
+                })
+                dispatch(MainAction.Save(clients));
+            }).catch(error => {
+            });
+        }
+
+    }
+}
+

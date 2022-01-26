@@ -10,7 +10,7 @@ const Drawer = createDrawerNavigator();
 export default function DrawerNavigator() {
   const disoath = useDispatch();
   useEffect(() => {
-    disoath(ProfileActionThunkCreator.Client);
+    disoath(ProfileActionThunkCreator.ClientGet);
   }, []);
   return (
     <NavigationContainer>

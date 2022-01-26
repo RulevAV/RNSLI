@@ -5,11 +5,11 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 
-export const DataUser = (props) => {
+export const ProfileInput = (props) => {
     return <View style={styles.content}>
         <View style={styles.section}>
             <Text style={styles.label}>{props.title}</Text>
-            <TextInput style={styles.input} value={props.value} placeholder={props.placeholder} onChangeText={props.onChangeText} />
+            <TextInput editable={props.editable} style={styles.input} value={props.value} placeholder={props.placeholder} onChangeText={props.onChangeText} />
             <Text style={styles.errorMessages}>{
                 props.errors && props.touched ?
                     props.errors : ""

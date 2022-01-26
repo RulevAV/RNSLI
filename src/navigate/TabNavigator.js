@@ -17,7 +17,6 @@ export default function TabNavigator() {
       screenOptions={{
         headerStyle: {
           backgroundColor: "#42AAFF",
-
         },
         headerTitleStyle: {
           fontWeight: 'bold',
@@ -25,6 +24,9 @@ export default function TabNavigator() {
           fontSize: 25
         },
         headerTintColor: '#fff',
+        tabBarActiveTintColor: 'red',
+        tabBarInactiveTintColor: 'gray',
+
       }}>
       {Auth ? <Tab.Screen name="Main" component={nacigateMain} options={{ title: "Главная", }} /> : null}
       {Auth ? <Tab.Screen name="Profil" component={ProfileContainer} options={{ title: "Профиль" }} /> : null}

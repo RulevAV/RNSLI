@@ -29,9 +29,9 @@ export const ProfileAction = {
 }
 
 export const ProfileActionThunkCreator = {
-    Client: () => {
+    ClientGet: () => {
         return async (dispatch) => {
-            AuthAPI.Client().then(profile => {
+            AuthAPI.ClientGet().then(profile => {
                 dispatch(ProfileAction.Save("photo", profile.surname, profile.name, profile.patronymic));
                 dispatch(AuthorizationAction.Login());
             }).catch(error => {
@@ -40,14 +40,15 @@ export const ProfileActionThunkCreator = {
         }
 
     },
-    Clients: () => {
-
+    ClientPut: (photo, lastName, firstName, patronymic) => {
         return async (dispatch) => {
-            AuthAPI.Clients().then(clients => {
-                //console.log(clients[0]);
+            AuthAPI.ClientPut(photo, lastName, firstName, patronymic).then(profile => {
                 //dispatch(ProfileAction.Save("photo", profile.surname, profile.name, profile.patronymic));
-                //dispatch(AuthorizationAction.Login());
+                // dispatch(AuthorizationAction.Login());
+            }).catch(error => {
+                // dispatch(AuthorizationAction.Logout());
             });
         }
-    },
+
+    }
 }

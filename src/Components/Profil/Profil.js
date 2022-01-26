@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Text, View, Image, StyleSheet, ScrollView, TextInput, Button } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { DataUser } from './DataUser/DataUser';
+import { ProfileInput } from './ProfileInput/ProfileInput';
 import { useDispatch, useSelector } from "react-redux";
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 const SignupSchema = Yup.object().shape({
   lastName: Yup.string()
@@ -15,33 +17,34 @@ const SignupSchema = Yup.object().shape({
 });
 
 export default function ProfilScreen({ Profile, SaveProfile }) {
+  const [imageUri, setImageUri] = useState(Profile.photo);
   const noPhoto = '../../../assets/img/noPhoto.jpeg';
-  const ComponentImg = !Profile.photo ?
-    <Image source={require(noPhoto)}
-      style={styles.img}
-      resizeMode='contain' /> :
-    <Image
-      style={styles.img}
-      //resizeMode='contain'
-      source={{
-        uri: Profile.photo
-      }} />;
-  const selectIMG = () => {
-    let body = new FormData();
-    body.append('photo', { uri: imagePath, name: 'photo.png', filename: 'imageName.png', type: 'image/png' });
-    body.append('Content-Type', 'image/png');
 
-    // fetch(Url, {
-    //   method: 'POST', headers: {
-    //     "Content-Type": "multipart/form-data",
-    //     "otherHeader": "foo",
-    //   }, body: body
-    // })
-    //   .then((res) => checkStatus(res))
-    //   .then((res) => res.json())
-    //   .then((res) => { console.log("response" + JSON.stringify(res)); })
-    //   .catch((e) => console.log(e))
+  PhotoFromGallery = () => {
+    let options = {
+      storageOptions: {
+        path: 'images',
+        mediaType: 'photo',
+      },
+      includebase64: true,
+    };
+
+    launchImageLibrary(options, (response) => {
+
+      if (response.didCancel) {
+        //  console.log('User cancelled image picker');
+      } else if (response.error) {
+        // console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        //console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = { uri: response.uri };
+        setImageUri(response.assets[0].uri);
+      }
+    });
+
   }
+  const editable = !!Profile.MyProfil;
   return (
     <ScrollView style={styles.profile}>
       <Formik initialValues={{ photo: Profile.photo, lastName: Profile.lastName, firstName: Profile.firstName, patronymic: Profile.patronymic }}
@@ -53,13 +56,22 @@ export default function ProfilScreen({ Profile, SaveProfile }) {
           return (
             <View style={styles.content}>
 
-              {ComponentImg}
-              <Text style={styles.changeImg} onPress={selectIMG}>Изменить фотографию</Text>
+              {!imageUri ?
+                <Image source={require(noPhoto)}
+                  style={styles.img}
+                  resizeMode='contain' /> :
+                <Image
+                  style={styles.img}
+                  //resizeMode='contain'
+                  source={{
+                    uri: imageUri
+                  }} />}
 
-              <View>
+              {editable ? <Text style={styles.changeImg} onPress={PhotoFromGallery}>Изменить фотографию</Text>
+                : null}
 
-              </View>
-              <DataUser
+              <ProfileInput
+                editable={editable}
                 title="Фамиля"
                 value={props.values.lastName}
                 placeholder="Введите фамилию"
@@ -67,7 +79,8 @@ export default function ProfilScreen({ Profile, SaveProfile }) {
                 errors={props.errors.lastName}
                 touched={props.touched.lastName} />
 
-              <DataUser
+              <ProfileInput
+                editable={editable}
                 title="Имя"
                 value={props.values.firstName}
                 placeholder="Введите имя"
@@ -75,14 +88,15 @@ export default function ProfilScreen({ Profile, SaveProfile }) {
                 errors={props.errors.firstName}
                 touched={props.touched.firstName} />
 
-              <DataUser
+              <ProfileInput
+                editable={editable}
                 title="Отчечтво"
                 value={props.values.patronymic}
                 placeholder="Введите отчечтво"
                 onChangeText={props.handleChange('patronymic')}
                 errors={props.errors.patronymic}
                 touched={props.touched.patronymic} />
-              <Button style={styles.buttom} title='Сохранить' onPress={props.handleSubmit} />
+              {editable ? <Button style={styles.buttom} title='Сохранить' onPress={props.handleSubmit} /> : null}
             </View>
           )
         }}
@@ -102,7 +116,6 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
     borderWidth: 1,
-    //borderColor: "#FFD700",
     alignSelf: "center"
   },
   changeImg: {
