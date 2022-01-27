@@ -5,6 +5,7 @@ import ProfileContainer from '../Components/Profil/ProfileContainer';
 import AuthorizationScreen from '../Components/Authorization/Authorization';
 import { useSelector } from "react-redux";
 import nacigateMain from "./nacigateMain"
+import { Main, Profile, Authorization } from './TabsTitle';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +14,7 @@ export default function TabNavigator() {
     return state.AuthorizationReducer.Auth;
   }));
   return (
-    <Tab.Navigator initialRouteName="Main"
+    <Tab.Navigator initialRouteName="Main" tabBarOptions={{ showLabel: false }}
       screenOptions={{
         headerStyle: {
           backgroundColor: "#42AAFF",
@@ -28,10 +29,19 @@ export default function TabNavigator() {
         tabBarInactiveTintColor: 'gray',
 
       }}>
-      {Auth ? <Tab.Screen name="Main" component={nacigateMain} options={{ title: "Главная", }} /> : null}
-      {Auth ? <Tab.Screen name="Profil" component={ProfileContainer} options={{ title: "Профиль" }} /> : null}
+      {Auth ? <Tab.Screen name="Main" component={nacigateMain} options={{
+        title: "Главная",
+        tabBarIcon: Main,
+      }} /> : null}
+      {Auth ? <Tab.Screen name="Profile" component={ProfileContainer} options={{
+        title: "Профиль",
+        tabBarIcon: Profile,
+      }} /> : null}
 
-      <Tab.Screen name="Authorization" component={AuthorizationScreen} options={{ title: "Авторизация" }} />
+      <Tab.Screen name="Authorization" component={AuthorizationScreen} options={{
+        title: "Авторизация",
+        tabBarIcon: Authorization,
+      }} />
     </Tab.Navigator>
   );
 }
