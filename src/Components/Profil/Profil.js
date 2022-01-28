@@ -38,8 +38,8 @@ export default function ProfilScreen({ Profile, SaveProfile }) {
       } else if (response.customButton) {
         //console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = { uri: response.uri };
-        setImageUri(response.assets[0].uri);
+        const source = "data:image/png;base64," + response.assets[0].base64;
+        setImageUri(source);
       }
     });
 
