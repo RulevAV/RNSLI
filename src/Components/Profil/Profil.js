@@ -26,7 +26,7 @@ export default function ProfilScreen({ Profile, SaveProfile }) {
         path: 'images',
         mediaType: 'photo',
       },
-      includebase64: true,
+      includeBase64: true,
     };
 
     launchImageLibrary(options, (response) => {

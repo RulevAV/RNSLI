@@ -12,7 +12,7 @@ const Drawer = createDrawerNavigator();
 export default function DrawerNavigator() {
   const disoath = useDispatch();
   useEffect(() => {
-    disoath(ProfileActionThunkCreator.ClientGet);
+    disoath(ProfileActionThunkCreator.ClientGet());
   }, []);
   const Auth = useSelector((state => {
     return state.AuthorizationReducer.Auth;

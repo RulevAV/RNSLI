@@ -1,4 +1,5 @@
 import { AuthAPI } from "../api/api";
+import { AuthorizationAction } from "./AuthorizationReducer";
 export const initialState = {
     photo: "https://ona-znaet.ru/_pu/19/72349760.jpg",
     lastName: "Иванов",
@@ -9,6 +10,7 @@ export const initialState = {
 export const ProfileReducer = (state = initialState, action) => {
     switch (action.type) {
         case "PROFILE_SAVE":
+            // console.log(action.data);
             return {
                 ...action.data
             };
@@ -31,7 +33,9 @@ export const ProfileAction = {
 export const ProfileActionThunkCreator = {
     ClientGet: () => {
         return async (dispatch) => {
+
             AuthAPI.ClientGet().then(profile => {
+                // console.log(profile);
                 dispatch(ProfileAction.Save("photo", profile.surname, profile.name, profile.patronymic));
                 dispatch(AuthorizationAction.Login());
             }).catch(error => {

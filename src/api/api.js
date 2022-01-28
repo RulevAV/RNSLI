@@ -31,7 +31,7 @@ export const AuthAPI = {
     ClientGet: () => {
         return AuthGuery.get('api/client')
             .then(response => {
-                const profile = response.data.client.profile;
+                const profile = response.data.profile;
                 return profile;
             }).catch(error => {
                 return error;

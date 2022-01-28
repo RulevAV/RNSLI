@@ -1,7 +1,7 @@
 import { AuthAPI } from "../api/api";
 import { ProfileAction } from "./ProfileReducer";
 export const initialState = {
-    Auth: true,
+    Auth: false,
 };
 
 export const AuthorizationReducer = (state = initialState, action) => {
